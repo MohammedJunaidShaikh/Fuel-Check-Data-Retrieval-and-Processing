@@ -1,120 +1,86 @@
-FuelCheck Data Retrieval and Processing
-📌 Project Overview
+# FuelCheck Data Retrieval and Processing  
 
-This project focuses on retrieving, processing, and visualizing real-time fuel price data from the New South Wales (NSW) Government’s FuelCheck API. The aim is to gain hands-on experience in data engineering workflows, including:
+## 📌 Project Overview  
+This project focuses on retrieving, processing, and visualizing real-time fuel price data from the New South Wales (NSW) Government’s FuelCheck API.  
+It provides hands-on experience in data engineering workflows, including:  
+- Data retrieval from APIs  
+- Data integration and cleaning  
+- Data publishing via MQTT  
+- Real-time subscription and visualization with a dynamic dashboard  
 
-Data retrieval from APIs
+The system runs continuously, simulating an unbounded data stream for real-world data engineering use cases.  
 
-Data integration and cleaning
+---
 
-Data publishing via MQTT
+## 🚀 Features and Workflow  
 
-Real-time subscription and visualization with a dynamic dashboard
+### 1. Data Retrieval  
+- Fetches live fuel pricing data across NSW service stations using the FuelCheck API (v1 endpoints).  
+- Optimized API calls to minimize redundant requests.  
 
-The system is designed to run continuously, simulating an unbounded data stream for real-world data engineering use cases.
+### 2. Data Integration & Storage  
+- Consolidates retrieved data into a single dataset.  
+- Cleans and preprocesses data:  
+  - Handles missing values  
+  - Ensures correct data types  
+  - Filters out irrelevant/inconsistent records  
+- Stores the consolidated dataset into a `.csv` file.  
 
-🚀 Features and Workflow
-1. Data Retrieval
+### 3. Data Publishing via MQTT  
+- Publishes each fuel price record as an MQTT message.  
+- Adds a `0.1s` delay between each publish to simulate streaming.  
 
-Fetch live fuel pricing data across NSW service stations using the FuelCheck API (v1 endpoints).
+### 4. Data Subscribing & Visualization  
+- Dashboard application subscribes to MQTT messages.  
+- Dynamic map visualization (Streamlit + Folium) shows:  
+  - Station locations with markers  
+  - Station brand and default fuel price (selectable via dropdown)  
+  - Pop-up with station name, address, prices, and update timestamp  
 
-Implemented API call optimization to minimize redundant requests.
+### 5. Continuous Execution  
+- Tasks 1–3 (retrieval, integration, publishing) run continuously.  
+- A `60s` delay is applied between each API retrieval cycle.  
 
-2. Data Integration & Storage
+---
 
-Consolidates retrieved data into a single dataset.
-
-Cleans and preprocesses the data by:
-
-Handling missing values
-
-Ensuring correct data types
-
-Filtering out irrelevant/inconsistent records
-
-Stores the final dataset into a .csv file for further use.
-
-3. Data Publishing via MQTT
-
-Publishes each fuel price record as an MQTT message.
-
-Introduces a 0.1s delay between each publish to simulate streaming.
-
-4. Data Subscribing & Visualization
-
-A dashboard application subscribes to the MQTT stream.
-
-Dynamic map visualization (built using Streamlit + Folium) displays:
-
-Service station locations with markers
-
-Station brand and default fuel price (selectable via dropdown)
-
-Detailed pop-up with station name, address, updated prices, and timestamp
-
-5. Continuous Execution
-
-Tasks 1–3 (retrieval, integration, publishing) run continuously.
-
-A 60s delay is applied between each new round of API retrieval, in addition to the publishing delay.
-
-📂 Project Structure
-ASGN2/
-│── data_retrieval.py        # Handles API calls, integration, cleaning, and CSV storage
-│── visualization.py         # Dashboard subscribing to MQTT and rendering live map
-│── requirements.txt         # Dependencies
-│── fuelprice.csv            # Consolidated dataset (output)
-│── COMP5339_Assignment2.pdf # Project report
-
-🛠️ Tech Stack
-
-Python
-
-Requests (API calls)
-
-Pandas (data cleaning & integration)
-
-paho-mqtt (MQTT publishing & subscribing)
-
-Streamlit + Folium (dashboard & map visualization)
-
-⚙️ Setup Instructions
-
-Clone this repository:
-
-git clone https://github.com/MohammedJunaidShaikh/Fuel-Check-Data-Retrieval-and-Processing.git
-cd Fuel-Check-Data-Retrieval-and-Processing
+## 📂 Project Structure  
 
 
-Create and activate a virtual environment (optional but recommended):
+---
 
-python -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
+## 🛠️ Tech Stack  
 
+- **Python**  
+- **Requests** – API calls  
+- **Pandas** – data cleaning & integration  
+- **paho-mqtt** – MQTT publishing & subscribing  
+- **Streamlit** + **Folium** – dashboard & map visualization  
 
-Install dependencies:
+---
 
-pip install -r requirements.txt
+## ⚙️ Setup Instructions  
 
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/MohammedJunaidShaikh/Fuel-Check-Data-Retrieval-and-Processing.git
+   cd Fuel-Check-Data-Retrieval-and-Processing
 
-Run the data retrieval & publishing service:
+  name: fuelcheck-env
+channels:
+  - defaults
+  - conda-forge
 
-python data_retrieval.py
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - requests
+      - pandas
+      - paho-mqtt
+      - streamlit
+      - folium
 
+## Snapshots of Project
+<img width="1088" height="718" alt="image" src="https://github.com/user-attachments/assets/a3820103-88b1-44e7-9091-4c65caa30128" />
+<img width="990" height="783" alt="image" src="https://github.com/user-attachments/assets/b62fd372-b9f9-4cc6-899b-0a4c557b4a41" />
 
-In another terminal, run the dashboard:
-
-streamlit run visualization.py
-
-📊 Deliverables
-
-Python Programs:
-
-data_retrieval.py (Tasks 1–3)
-
-visualization.py (Task 4)
-
-requirements.txt: All required packages.
-
-Project Report: Summarizes workflow, insights, challenges, and recommendations.
